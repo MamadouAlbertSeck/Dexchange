@@ -1,7 +1,25 @@
 'use client';
 
 import { useState } from 'react';
-import { BarChart3, Globe, WalletMinimal, File, CreditCard, Zap, Home, Receipt, User, LogIn, UserPlus, Menu, Search, Settings, Bell, ShoppingCart, Users, DollarSign, TrendingUp, ArrowRight } from 'lucide-react';
+import { BarChart3, Globe, WalletMinimal, File, CreditCard, Zap, Home, Receipt, User, LogIn, UserPlus, Search, Settings, Bell, ShoppingCart, TrendingUp, ArrowRight } from 'lucide-react';
+
+type NavItemProps = {
+    icon: React.ReactNode;
+    label: string;
+    active?: boolean;
+    sidebarOpen: boolean;
+};
+
+const NavItem: React.FC<NavItemProps> = ({ icon, label, active = false, sidebarOpen }) => (
+    <button
+        className={`w-full flex items-center gap-3 px-2 md:px-4 py-2 rounded-lg mb-1 transition-colors ${
+            active ? 'bg-teal-500 text-white' : 'text-gray-600 hover:bg-gray-50'
+        }`}
+    >
+        <span className={active ? 'text-white' : 'text-gray-500'}>{icon}</span>
+        {sidebarOpen && <span className="text-sm md:text-base font-medium">{label}</span>}
+    </button>
+);
 
 const Dashboard = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -14,54 +32,12 @@ const Dashboard = () => {
     ];
 
     const projects = [
-        {
-            name: "Chakra Soft UI Version",
-            icon: "🎨",
-            members: 4,
-            budget: "$14,000",
-            completion: 60,
-            color: "bg-purple-500"
-        },
-        {
-            name: "Add Progress Track",
-            icon: "💎",
-            members: 3,
-            budget: "$3,000",
-            completion: 10,
-            color: "bg-blue-500"
-        },
-        {
-            name: "Fix Platform Errors",
-            icon: "🛠️",
-            members: 2,
-            budget: "Not set",
-            completion: 100,
-            color: "bg-gray-500"
-        },
-        {
-            name: "Launch our Mobile App",
-            icon: "📱",
-            members: 0,
-            budget: "$32,000",
-            completion: 100,
-            color: "bg-teal-500"
-        },
-        {
-            name: "Add the New Pricing Page",
-            icon: "📄",
-            members: 0,
-            budget: "$400",
-            completion: 25,
-            color: "bg-yellow-500"
-        },
-        {
-            name: "Redesign New Online Shop",
-            icon: "🛒",
-            members: 2,
-            budget: "$7,600",
-            completion: 40,
-            color: "bg-red-500"
-        }
+        { name: "Chakra Soft UI Version", icon: "🎨", members: 4, budget: "$14,000", completion: 60, color: "bg-purple-500" },
+        { name: "Add Progress Track", icon: "💎", members: 3, budget: "$3,000", completion: 10, color: "bg-blue-500" },
+        { name: "Fix Platform Errors", icon: "🛠️", members: 2, budget: "Not set", completion: 100, color: "bg-gray-500" },
+        { name: "Launch our Mobile App", icon: "📱", members: 0, budget: "$32,000", completion: 100, color: "bg-teal-500" },
+        { name: "Add the New Pricing Page", icon: "📄", members: 0, budget: "$400", completion: 25, color: "bg-yellow-500" },
+        { name: "Redesign New Online Shop", icon: "🛒", members: 2, budget: "$7,600", completion: 40, color: "bg-red-500" }
     ];
 
     const orders = [
@@ -76,133 +52,120 @@ const Dashboard = () => {
     return (
         <div className="flex h-screen bg-gray-50 overflow-hidden">
             {/* Sidebar */}
-            <div className={`${sidebarOpen ? 'w-50' : 'w-15'} bg-black border-r border-gray-200 transition-all duration-300 flex flex-col`}>
+            <div className={`${sidebarOpen ? 'w-48 md:w-52' : 'w-16 md:w-20'} bg-black border-r border-gray-200 transition-all duration-300 flex flex-col`}>
                 <div className="p-4">
-                    <h1 className={`font-bold text-center text-gray-800 ${sidebarOpen ? 'text-xs' : 'text-sm'}`}>
+                    <h1 className={`font-bold text-center text-gray-800 text-xs md:text-sm`}>
                         {sidebarOpen ? 'DEXCHANGE SAAS' : 'DEX'}
                     </h1>
                 </div>
 
-                <nav className="flex-1 px-3">
+                <nav className="flex-1 px-2 md:px-3">
                     <div className="mb-1">
                         <NavItem icon={<Home size={15} />} label="Dashboard" active sidebarOpen={sidebarOpen} />
-                        <NavItem icon={<BarChart3 size={15} />} label="TRANSACTIONS" sidebarOpen={sidebarOpen} />
-                        <NavItem icon={<CreditCard size={15} />} label="Billing" sidebarOpen={sidebarOpen} />
-                        <NavItem icon={<Zap size={15} />} label="RTL" sidebarOpen={sidebarOpen} />
+                        <NavItem icon={<BarChart3 size={15} />} label="TRANSACTIONS" active sidebarOpen={sidebarOpen} />
+                        <NavItem icon={<CreditCard size={15} />} label="Billing" active sidebarOpen={sidebarOpen} />
+                        <NavItem icon={<Zap size={15} />} label="RTL" active sidebarOpen={sidebarOpen} />
                     </div>
 
                     <div className="mb-3">
-                        {sidebarOpen && <p className="text-[10px] font-semibold text-gray-400 px-4 mb-2">ACCOUNT PAGES</p>}
-                        <NavItem icon={<User size={20} />} label="Profile" sidebarOpen={sidebarOpen} />
-                        <NavItem icon={<LogIn size={20} />} label="Sign In" sidebarOpen={sidebarOpen} />
-                        <NavItem icon={<UserPlus size={20} />} label="Sign Up" sidebarOpen={sidebarOpen} />
+                        {sidebarOpen && <p className="text-[10px] md:text-xs font-semibold text-gray-400 px-4 mb-2">ACCOUNT PAGES</p>}
+                        <NavItem icon={<User size={20} />} label="Profile" active sidebarOpen={sidebarOpen} />
+                        <NavItem icon={<LogIn size={20} />} label="Sign In"  active sidebarOpen={sidebarOpen} />
+                        <NavItem icon={<UserPlus size={20} />} label="Sign Up" active sidebarOpen={sidebarOpen} />
+                    </div>
+
+                    <div className="p-2 md:p-4">
+                        {sidebarOpen && (
+                            <div className="bg-gradient-to-br from-teal-400 to-teal-500 rounded-xl p-4 text-white">
+                                <div className="bg-white rounded-full w-10 h-10 flex items-center justify-center mb-3">
+                                    <span className="text-2xl">📚</span>
+                                </div>
+                                <p className="text-xs font-semibold mb-1">DOCUMENTATION</p>
+                                <p className="text-sm mb-3">Need help?</p>
+                                <p className="text-xs mb-3">Please check our docs</p>
+                            </div>
+                        )}
                     </div>
                 </nav>
-
-                <div className="p-4">
-                    {sidebarOpen && (
-                        <div className="bg-gradient-to-br from-teal-400 to-teal-500 rounded-xl p-4 text-white">
-                            <div className="bg-white rounded-full w-10 h-10 flex items-center justify-center mb-3">
-                                <span className="text-2xl">📚</span>
-                            </div>
-                            <p className="text-xs font-semibold mb-1">DOCUMENTATION</p>
-                            <p className="text-sm mb-3">Need help?</p>
-                            <p className="text-xs mb-3">Please check our docs</p>
-                        </div>
-                    )}
-                </div>
             </div>
 
             {/* Main Content */}
             <div className="flex-1 overflow-auto">
                 {/* Header */}
-                <header className=" p-1 " >
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                            <div>
-                                <p className="text-xs ml-[20px] text-gray-500">Pages / Dashboard</p>
-                                <h2 className="text-xs ml-[20px] font-semibold text-gray-800">Dashboard</h2>
-                            </div>
+                <header className="p-2 md:p-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 md:gap-4">
+                    <div>
+                        <p className="text-xs md:text-sm text-gray-500">Pages / Dashboard</p>
+                        <h2 className="text-sm md:text-lg font-semibold text-gray-800">Dashboard</h2>
+                    </div>
+
+                    <div className="flex items-center gap-2 md:gap-4 w-full md:w-auto">
+                        <div className="relative flex-1 md:flex-none">
+                            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={15} />
+                            <input
+                                type="text"
+                                placeholder="Type here..."
+                                className="w-full md:w-[200px] h-8 pl-10 pr-4 border bg-white border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 text-xs md:text-sm"
+                            />
                         </div>
-                        <div className="flex items-center gap-4">
-                            <div className="relative">
-                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={15} />
-                                <input
-                                    type="text"
-                                    placeholder="Type here..."
-                                    className="w-[150px] h-[20px] pl-10 pr-4 py-2 border bg-white border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                                />
-                            </div>
 
-                            <button className="flex items-center gap-2 px-4 py-2 text-black rounded-lg text-sm font-medium ">
-                                <User size={15} className="text-gray-600" />
-                                <span>Sign In</span>
-                            </button>
+                        <button className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-1 md:py-2 text-black rounded-lg text-xs md:text-sm font-medium">
+                            <User size={15} className="text-gray-600" />
+                            <span>Sign In</span>
+                        </button>
 
-                            <button className="p-2 hover:bg-gray-100 rounded-lg">
-                                <Settings size={15} className="text-gray-600" />
-                            </button>
-                            <button className="p-2 hover:bg-gray-100 rounded-lg">
-                                <Bell size={15} className="text-gray-600" />
-                            </button>
-
-                        </div>
+                        <button className="p-2 hover:bg-gray-100 rounded-lg">
+                            <Settings size={15} className="text-gray-600" />
+                        </button>
+                        <button className="p-2 hover:bg-gray-100 rounded-lg">
+                            <Bell size={15} className="text-gray-600" />
+                        </button>
                     </div>
                 </header>
 
                 {/* Dashboard Content */}
-                <div className="p-4">
+                <div className="p-2 md:p-4">
                     {/* Stats Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-4">
                         {stats.map((stat, idx) => (
-                            <div key={idx} className="bg-white rounded-xl p-1 shadow-sm border border-gray-100">
-                                <div className="flex justify-between items-start mb-1" >
-                                    <div>
-                                        <p className="text-xs text-gray-500 mb-1 ml-[5px]">{stat.label}</p>
-                                        <div className="flex items-baseline gap-1">
-                                            <p className="text-sm font-bold text-gray-800 ml-[5px]">{stat.value}</p>
-                                            <span className={`text-xs font-semibold ${stat.positive ? 'text-green-500' : 'text-red-500'}`}>
-                                                {stat.change}</span>
-                                        </div>
+                            <div key={idx} className="bg-white rounded-xl p-2 md:p-4 shadow-sm border border-gray-100 flex justify-between items-start">
+                                <div>
+                                    <p className="text-xs md:text-sm text-gray-500 mb-1">{stat.label}</p>
+                                    <div className="flex items-baseline gap-1">
+                                        <p className="text-sm md:text-base font-bold text-gray-800">{stat.value}</p>
+                                        <span className={`text-xs md:text-sm font-semibold ${stat.positive ? 'text-green-500' : 'text-red-500'}`}>
+                                            {stat.change}
+                                        </span>
                                     </div>
-                                    <div className="bg-teal-500 p-3 rounded-lg mt-[3px] mr-[5px]">
-                                        <stat.icon className="text-white" size={10} />
-                                    </div>
+                                </div>
+                                <div className="bg-teal-500 p-2 md:p-3 rounded-lg">
+                                    <stat.icon className="text-white" size={15} />
                                 </div>
                             </div>
                         ))}
                     </div>
 
                     {/* Info Cards */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex items-center justify-between">
-                            {/* Texte à gauche */}
-                            <div className="flex-1 pr-4">
-                                <p className="text-xs text-gray-400 mb-1">Lorem Ipsum</p>
-                                <h3 className="text-lg font-bold text-gray-800 mb-2">Lorem Dashboard</h3>
-                                <p className="text-sm text-gray-500">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mb-6">
+                        <div className="bg-white rounded-xl p-4 md:p-6 shadow-sm border border-gray-100 flex flex-col md:flex-row items-center justify-between">
+                            <div className="flex-1 pr-4 mb-4 md:mb-0">
+                                <p className="text-xs md:text-sm text-gray-400 mb-1">Lorem Ipsum</p>
+                                <h3 className="text-sm md:text-lg font-bold text-gray-800 mb-2">Lorem Dashboard</h3>
+                                <p className="text-xs md:text-sm text-gray-500 mb-3">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 </p>
-
-                                <button className="flex items-center gap-2 text-gray-800 font-medium hover:gap-3 transition-all text-sm mt-3">
+                                <button className="flex items-center gap-1 md:gap-2 text-gray-800 font-medium hover:gap-3 transition-all text-xs md:text-sm">
                                     Read more <ArrowRight size={14} />
                                 </button>
                             </div>
-
-                            {/* Bloc coloré à droite */}
-                            <div className="bg-gradient-to-br from-teal-400 to-teal-500 rounded-xl p-5 text-white flex items-center justify-center min-w-[150px]">
-                                <div className="bg-white rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                            <div className="bg-gradient-to-br from-teal-400 to-teal-500 rounded-xl p-4 md:p-5 text-white flex items-center justify-center min-w-[120px] md:min-w-[150px]">
+                                <div className="bg-white rounded-full w-10 h-10 flex items-center justify-center mr-2 md:mr-3">
                                     <span className="text-2xl">⚡</span>
                                 </div>
-                                <span className="text-2xl font-light">chakra</span>
+                                <span className="text-xl md:text-2xl font-light">chakra</span>
                             </div>
                         </div>
 
-
-
-
-                        <div className="bg-gray-800 rounded-xl p-6 text-white relative overflow-hidden">
-                            {/* Image d’arrière-plan */}
+                        <div className="bg-gray-800 rounded-xl p-4 md:p-6 text-white relative overflow-hidden">
                             <div className="absolute inset-0 opacity-40">
                                 <img
                                     src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800"
@@ -210,108 +173,94 @@ const Dashboard = () => {
                                     className="w-full h-full object-cover"
                                 />
                             </div>
-
-                            {/* Contenu */}
                             <div className="relative z-10 flex flex-col justify-between h-full">
                                 <div>
-                                    <p className="text-[10px] uppercase tracking-wide text-teal-300 mb-2">
+                                    <p className="text-[10px] md:text-xs uppercase tracking-wide text-teal-300 mb-2">
                                         Lorem Ipsum
                                     </p>
-                                    <h3 className="text-lg font-semibold mb-2 leading-snug">
+                                    <h3 className="text-sm md:text-lg font-semibold mb-2 leading-snug">
                                         Lorem Ipsum Dolor
                                     </h3>
-                                    <p className="text-xs text-gray-200 leading-relaxed mb-6">
+                                    <p className="text-xs md:text-sm text-gray-200 leading-relaxed mb-6">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi
                                         nisi, tincidunt sit amet.
                                     </p>
                                 </div>
-
-                                <button className="flex items-center gap-2 text-sm text-white font-medium hover:gap-3 transition-all self-start">
+                                <button className="flex items-center gap-1 md:gap-2 text-sm md:text-base text-white font-medium hover:gap-3 transition-all self-start">
                                     Read more <ArrowRight size={14} />
                                 </button>
                             </div>
                         </div>
-
                     </div>
 
                     {/* Projects and Orders */}
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
                         {/* Projects */}
-                        <div className="lg:col-span-2 bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                            <div className="flex justify-between items-center mb-6">
-                                <div>
-                                    <h3 className="text-xl font-bold text-gray-800">Projects</h3>
-                                    <p className="text-sm text-gray-500 flex items-center gap-2 mt-1">
-                                        <TrendingUp size={16} className="text-green-500" />
-                                        <span className="font-semibold text-gray-700">30 done</span> this month
-                                    </p>
-                                </div>
+                        <div className="lg:col-span-2 bg-white rounded-xl p-4 md:p-6 shadow-sm border border-gray-100 overflow-x-auto">
+                            <div className="flex justify-between items-center mb-4 md:mb-6">
+                                <h3 className="text-lg md:text-xl font-bold text-gray-800">Projects</h3>
                             </div>
-
-                            <div className="overflow-x-auto">
-                                <table className="w-full">
-                                    <thead>
-                                        <tr className="border-b border-gray-100">
-                                            <th className="text-left py-3 px-2 text-xs font-semibold text-gray-500 uppercase">Companies</th>
-                                            <th className="text-left py-3 px-2 text-xs font-semibold text-gray-500 uppercase">Members</th>
-                                            <th className="text-left py-3 px-2 text-xs font-semibold text-gray-500 uppercase">Budget</th>
-                                            <th className="text-left py-3 px-2 text-xs font-semibold text-gray-500 uppercase">Completion</th>
+                            <table className="w-full min-w-[500px]">
+                                <thead>
+                                    <tr className="border-b border-gray-100">
+                                        <th className="text-left py-2 px-2 text-xs md:text-sm font-semibold text-gray-500 uppercase">Companies</th>
+                                        <th className="text-left py-2 px-2 text-xs md:text-sm font-semibold text-gray-500 uppercase">Members</th>
+                                        <th className="text-left py-2 px-2 text-xs md:text-sm font-semibold text-gray-500 uppercase">Budget</th>
+                                        <th className="text-left py-2 px-2 text-xs md:text-sm font-semibold text-gray-500 uppercase">Completion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {projects.map((project, idx) => (
+                                        <tr key={idx} className="border-b border-gray-50 hover:bg-gray-50">
+                                            <td className="py-3 px-2">
+                                                <div className="flex items-center gap-2 md:gap-3">
+                                                    <div className={`${project.color} w-8 h-8 md:w-10 md:h-10 rounded-lg flex items-center justify-center text-sm md:text-xl`}>
+                                                        {project.icon}
+                                                    </div>
+                                                    <span className="font-medium text-gray-800 text-xs md:text-sm">{project.name}</span>
+                                                </div>
+                                            </td>
+                                            <td className="py-3 px-2">
+                                                <div className="flex -space-x-1 md:-space-x-2">
+                                                    {[...Array(project.members)].map((_, i) => (
+                                                        <div key={i} className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 border-2 border-white" />
+                                                    ))}
+                                                </div>
+                                            </td>
+                                            <td className="py-3 px-2 text-xs md:text-sm font-medium text-gray-700">{project.budget}</td>
+                                            <td className="py-3 px-2">
+                                                <div className="flex items-center gap-2 md:gap-3">
+                                                    <div className="flex-1 bg-gray-100 rounded-full h-2 overflow-hidden">
+                                                        <div
+                                                            className="bg-teal-500 h-full rounded-full transition-all"
+                                                            style={{ width: `${project.completion}%` }}
+                                                        />
+                                                    </div>
+                                                    <span className="text-xs md:text-sm font-semibold text-teal-500">{project.completion}%</span>
+                                                </div>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        {projects.map((project, idx) => (
-                                            <tr key={idx} className="border-b border-gray-50 hover:bg-gray-50">
-                                                <td className="py-4 px-2">
-                                                    <div className="flex items-center gap-3">
-                                                        <div className={`${project.color} w-10 h-10 rounded-lg flex items-center justify-center text-xl`}>
-                                                            {project.icon}
-                                                        </div>
-                                                        <span className="font-medium text-gray-800 text-sm">{project.name}</span>
-                                                    </div>
-                                                </td>
-                                                <td className="py-4 px-2">
-                                                    <div className="flex -space-x-2">
-                                                        {[...Array(project.members)].map((_, i) => (
-                                                            <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 border-2 border-white" />
-                                                        ))}
-                                                    </div>
-                                                </td>
-                                                <td className="py-4 px-2 text-sm font-medium text-gray-700">{project.budget}</td>
-                                                <td className="py-4 px-2">
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="flex-1 bg-gray-100 rounded-full h-2 overflow-hidden">
-                                                            <div
-                                                                className="bg-teal-500 h-full rounded-full transition-all"
-                                                                style={{ width: `${project.completion}%` }}
-                                                            />
-                                                        </div>
-                                                        <span className="text-sm font-semibold text-teal-500">{project.completion}%</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
 
                         {/* Orders Overview */}
-                        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                            <h3 className="text-xl font-bold text-gray-800 mb-2">Orders overview</h3>
-                            <p className="text-sm text-gray-500 mb-6 flex items-center gap-2">
+                        <div className="bg-white rounded-xl p-4 md:p-6 shadow-sm border border-gray-100">
+                            <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-2">Orders overview</h3>
+                            <p className="text-xs md:text-sm text-gray-500 mb-4 md:mb-6 flex items-center gap-1 md:gap-2">
                                 <TrendingUp size={16} className="text-green-500" />
-                                <span className="font-semibold text-gray-700">+30%</span> this month
+                                <span className="font-semibold text-gray-700 text-xs md:text-sm">+30%</span> this month
                             </p>
-
-                            <div className="space-y-4">
+                            <div className="space-y-3 md:space-y-4">
                                 {orders.map((order, idx) => (
-                                    <div key={idx} className="flex items-start gap-4">
-                                        <div className={`${order.color} w-10 h-10 rounded-lg flex items-center justify-center text-xl flex-shrink-0`}>
+                                    <div key={idx} className="flex items-start gap-2 md:gap-4">
+                                        <div className={`${order.color} w-8 h-8 md:w-10 md:h-10 rounded-lg flex items-center justify-center text-sm md:text-xl flex-shrink-0`}>
                                             {order.icon}
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="font-medium text-gray-800 text-sm mb-1">{order.title}</p>
-                                            <p className="text-xs text-gray-500">{order.time}</p>
+                                            <p className="font-medium text-gray-800 text-xs md:text-sm mb-1">{order.title}</p>
+                                            <p className="text-xs md:text-sm text-gray-500">{order.time}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -323,17 +272,5 @@ const Dashboard = () => {
         </div>
     );
 };
-
-const NavItem = ({ icon, label, active, sidebarOpen }) => (
-    <button
-        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg mb-1 transition-colors ${active
-                ? 'bg-teal-500 text-white'
-                : 'text-gray-600 hover:bg-gray-50'
-            }`}
-    >
-        <span className={active ? 'text-white' : 'text-gray-500'}>{icon}</span>
-        {sidebarOpen && <span className="text-sm font-medium">{label}</span>}
-    </button>
-);
 
 export default Dashboard;
