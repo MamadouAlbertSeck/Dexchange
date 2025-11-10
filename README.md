@@ -1,4 +1,14 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Application développée avec **Next.js (App Router)** et **Tailwind CSS**.  
+Ce projet contient trois pages principales : **Auth**, **Dashboard** et **Table**.
+
+## Structure du projet
+
+app/
+├── auth/ → Page d’authentification
+├── dashboard/ → Tableau de bord
+├── table/ → Tableau de données
+├── page.tsx → Page d’accueil avec boutons de navigation
+└── layout.tsx → Structure principale de l’application
 
 ## Getting Started
 
